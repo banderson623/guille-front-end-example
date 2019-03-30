@@ -1,7 +1,14 @@
 <template>
   <div>
     <h1>{{title}}</h1>
-    <Entry />
+    <Entry v-for="(entry, index) in entries" :key="entry.id"
+      :id=entry.id
+      :title=entry.title
+      :location=index
+      :publishedOn=Date(entry.publishedOn)
+      :byline="entry.byline"
+      :imageUrl="entry.imageUrl"
+    />
   </div>
 </template>
 
@@ -11,7 +18,11 @@ import Entry from "./Entry.vue"
 export default {
   name: 'Lane',
   props: {
-    title: String
+    title: String,
+    entries: {
+      type: Array,
+      default: () => {return []}
+    }
   },
   components: {
     Entry

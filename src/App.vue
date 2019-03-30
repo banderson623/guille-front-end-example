@@ -2,7 +2,7 @@
   <div id="app">
     <Navigation/>
     <div class="content">
-      <Lane title="Queue" />
+      <Lane title="Queue" :entries="queuedEntries"/>
       <Lane title="Live On Page" />
     </div>
   </div>
@@ -14,9 +14,17 @@ import Lane from './components/Lane.vue'
 
 export default {
   name: 'app',
+  beforeMount() {
+    this.$store.dispatch('loadEntries');
+  },
   components: {
     Navigation,
     Lane
+  },
+  computed: {
+    queuedEntries() {
+      return this.$store.state.entries.entries;
+    }
   }
 }
 </script>
