@@ -59,7 +59,10 @@ export default {
     flex-direction: column;
     justify-content: space-evenly;
     margin-left: 10px;
-    padding-right: 50px;
+  }
+
+  .content .title {
+    margin-right: 70px;
   }
 
   .placement_status {
