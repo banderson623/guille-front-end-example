@@ -6,22 +6,39 @@ Vue.use(Vuex)
 
 const Entries = {
   state: {
-    entries: []
+    unplaced: [],
+    placed: []
   },
+
   mutations: {
-    addEntry (state, entry){
-      state.entries.push(entry);
+    addNewEntry (state, entry){
+      state.unplaced.push(entry);
+    },
+
+    setEntries(state, payload) {
+      state[payload.q] =  payload.entries;
+    },
+
+    reset(state) {
+      state.unplaced = [];
+      state.placed = [];
     }
   },
+
   actions: {
     loadEntries(context) {
-      entries.forEach(e => context.commit('addEntry', e));
+      context.commit('reset');
+      entries.forEach(e => context.commit('addNewEntry', e));
+    },
+
+    reset(context) {
+      context.dispatch('loadEntries')
     }
   }
 }
 
 export default new Vuex.Store({
   modules: {
-    entries: Entries,
+    Entries: Entries,
   }
 })

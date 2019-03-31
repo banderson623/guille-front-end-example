@@ -1,11 +1,11 @@
 <template>
-  <div class="entry">
+  <div class="entry" v-bind:class="queue">
     <div class="image" v-bind:style="{ backgroundImage: 'url(' + imageUrl + ')' }"></div>
     <div class="content">
-      <span class="placement_status">{{location}}</span>
+      <span class="placement_status">{{placementBug}}</span>
       <p class="title">{{title}}</p>
       <p class="byline">{{byline}}</p>
-      <p class="publied_date"> {{publishedOn}}</p>
+      <p class="publied_date"> {{formattedDate}}</p>
     </div>
   </div>
 </template>
@@ -20,6 +20,21 @@ export default {
     byline: String,
     publishedOn: Date,
     location: Number,
+    queue: String
+  },
+  computed: {
+    placementBug: function() {
+      if(this.queue == 'unplaced'){
+        return 'Not Placed';
+      } else {
+        return this.location == 0 ? 'Hero story' : `Slot ${this.location}`
+      }
+    },
+
+    formattedDate: function() {
+      const date = this.publishedOn;
+      return `Published ${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`
+    }
   }
 }
 </script>
@@ -34,7 +49,7 @@ export default {
     position: relative;
   }
   .image {
-    width: 100px;
+    min-width: 100px;
     height: 100px;
     background-size:cover;
   }
@@ -44,7 +59,7 @@ export default {
     flex-direction: column;
     justify-content: space-evenly;
     margin-left: 10px;
-    margin-top: 20px;
+    padding-right: 50px;
   }
 
   .placement_status {
@@ -52,11 +67,15 @@ export default {
     text-align: center;
     top: 5px;
     right: 5px;
-    background-color: red;
+    background-color: rgb(249, 29, 78);
     color: #fff;
     border-radius: 3px;
     padding: 3px 5px;
     font-size: 10pt;
+  }
+
+  .placed .placement_status {
+    background-color: rgb(36, 210, 69);
   }
 
   p {

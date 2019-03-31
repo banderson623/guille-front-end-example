@@ -2,8 +2,8 @@
   <div id="app">
     <Navigation/>
     <div class="content">
-      <Lane title="Queue" :entries="queuedEntries"/>
-      <Lane title="Live On Page" />
+      <Lane title="Queue" queue="unplaced"/>
+      <Lane title="Live On Page" queue="placed"/>
     </div>
   </div>
 </template>
@@ -21,11 +21,6 @@ export default {
     Navigation,
     Lane
   },
-  computed: {
-    queuedEntries() {
-      return this.$store.state.entries.entries;
-    }
-  }
 }
 </script>
 

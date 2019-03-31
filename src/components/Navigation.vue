@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <button>Reset</button>
+    <button v-on:click="resetStore" >Reset</button>
     <button>Save changes</button>
   </nav>
 </template>
@@ -10,6 +10,12 @@ export default {
   name: 'Navigation',
   props: {
     msg: String
+  },
+  methods: {
+    resetStore: function(e) {
+      console.log('resetting');
+      this.$store.dispatch('loadEntries');
+    }
   }
 }
 </script>
